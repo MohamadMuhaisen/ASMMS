@@ -1,0 +1,95 @@
+<%- include("partials/header") %>
+<%- include("partials/modals") %>
+<style>
+    .alert-secondary {
+        background-color: #F2F2F2;
+        border-color: #F2F2F2;
+        margin-top: -5%;
+        color: black;
+    }
+
+    .alert {
+        position: relative;
+        padding: 0.6rem 0.1rem;
+        margin-bottom: 0rem;
+        border: 0px solid transparent;
+        border-radius: 0.25rem;
+    }
+</style>
+<div class="container table-responsive">
+    <table class="table table-striped text-center"
+        style="margin-top: 5%; margin-bottom: 5%;border: 2px solid whitesmoke;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Category</th>
+                <th scope="col">Service</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="empty text-center"></div>
+</div>
+<script>
+    var orders = <%- orders %>; // @ignore
+    for (var i = orders.length - 1; i >= 0; i--) {
+        $("tbody").append(`
+        <tr>
+            <th scope="row">${i}</th>
+            <td>${orders[i].category}</td>
+            <td>${orders[i].service.quality} ${orders[i].service.name}</td>
+            <td>${numberWithCommas(orders[i].quantity)}</td>
+            <td>${orders[i].status}</td>
+        </tr>
+        `);
+    }
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    $(function () {
+        $('#header').removeClass('fixed-top');
+        $('nav li').removeClass('active');
+        $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').parent().addClass('active');
+    });
+    $(function () {
+        if (orders.length == 0) {
+            $('.empty').append(`<div class="alert alert-secondary" role="alert">
+                <p>You don't have any orders yet!</p>
+                </div>`);
+        }
+    });
+</script>
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"),
+            s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/5f18de4c7258dc118beec24e/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
+
+
+<!-- Vendor JS Files -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="/assets/vendor/php-email-form/validate.js"></script>
+<script src="/assets/vendor/venobox/venobox.min.js"></script>
+<script src="/assets/vendor/aos/aos.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/assets/js/main.js"></script>

@@ -1,0 +1,57 @@
+<%- include("partials/header") %>
+<%- include("partials/modals") %>
+<style>
+    .approve,
+    .reject {
+        color: white;
+    }
+</style>
+<div class="container">
+    <table class="table table-striped text-center" style="margin-top: 15%;border: 2px solid whitesmoke;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Catgory</th>
+                <th scope="col">Service</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">User</th>
+                <th scope="col">Approve Order</th>
+                <th scope="col">Reject Order</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var orders = <%- orders %>; // @ignore
+    for (var i = orders.length - 1; i >= 0; i--) {
+        $("tbody").append(`
+        <tr>
+            <td>${orders[i].category}</td>
+            <td>${orders[i].service.quality} ${orders[i].service.name}</td>
+            <td>${numberWithCommas(orders[i].quantity)}</td>
+            <td name="username">${orders[i].user}</td>
+            <td><a type="button" href="/admin" class="btn btn-success approve">Approve</a></td>
+            <td><a type="button" href="/admin" class="btn btn-danger reject">Reject</a></td>
+        </tr>
+        `);
+    }
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    $(function () {
+        $('#header').removeClass('fixed-top');
+        $('nav li').removeClass('active');
+        $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').parent().addClass('active');
+    });
+    $('approve').click(
+        $.ajax({
+            type: 'POST',
+            url: "admin",
+            data: myKeyVals,
+            dataType: "text",
+            success: function (resultData) { alert("Save Complete") }
+        }));
+
+</script>
