@@ -10,12 +10,12 @@ var express = require("express"),
 const { body, validationResult } = require('express-validator');
 
 let noReplyTransporter = nodemailer.createTransport({
-    host: "nl1-ss17.a2hosting.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    host: "mail.asmms.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
     auth: {
         user: "noreply@asmms.com", // generated ethereal user
-        pass: "noreply123", // generated ethereal password
+        pass: "]#CRJ856tauM", // generated ethereal password
     },
     tls: {
         rejectUnauthorized: false
