@@ -176,8 +176,4 @@ router.get("/orders", middleware.isLoggedIn, function (req, res) {
     });
 });
 
-router.post("/admin/order", function (req, res) {
-
-});
-
 module.exports = router;
